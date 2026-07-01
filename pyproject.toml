@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ml-training-utils"
+version = "0.1.0"
+description = "Reusable utilities for small-to-medium PyTorch training projects."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch",
+    "tensorboard",
+]
+
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

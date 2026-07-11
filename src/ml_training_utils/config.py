@@ -1,6 +1,7 @@
 import argparse
 import yaml
 from collections.abc import Mapping
+from pathlib import Path
 from typing import Any
 
 class ConfigObject:
@@ -51,15 +52,15 @@ class ConfigObject:
         return repr(self._unwrap(self))
     
         
-def config_parser():
-    parser = argparse.ArgumentParser(description="Write model name from Hugging face")
+def config_parser(default_config_path: str | Path | None = None):
+    parser = argparse.ArgumentParser(description="Parse a YAML configuration file.")
     parser.add_argument(
         "-c",
         "--config",
-        default="config/",
-        help="Config File Name",
+        default=default_config_path,
+        required=default_config_path is None,
+        help="Path to a YAML config file.",
     )
     args = parser.parse_args()
-    print(args.config)
     with open(args.config, 'r') as f:
         return ConfigObject(yaml.safe_load(f))

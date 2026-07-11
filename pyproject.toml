@@ -9,6 +9,7 @@ description = "Reusable utilities for small-to-medium PyTorch training projects.
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "PyYAML",
     "torch",
     "tensorboard",
 ]

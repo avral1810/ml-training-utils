@@ -52,7 +52,12 @@ class ConfigObject:
         return repr(self._unwrap(self))
     
         
-def config_parser(default_config_path: str | Path | None = None):
+def load_config(path: str | Path) -> ConfigObject:
+    with open(path, "r") as f:
+        return ConfigObject(yaml.safe_load(f))
+
+
+def config_parser(default_config_path: str | Path | None = None) -> ConfigObject:
     parser = argparse.ArgumentParser(description="Parse a YAML configuration file.")
     parser.add_argument(
         "-c",
@@ -62,5 +67,4 @@ def config_parser(default_config_path: str | Path | None = None):
         help="Path to a YAML config file.",
     )
     args = parser.parse_args()
-    with open(args.config, 'r') as f:
-        return ConfigObject(yaml.safe_load(f))
+    return load_config(args.config)

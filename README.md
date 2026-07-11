@@ -11,6 +11,8 @@ loops.
   writer.
 - `time_execution`: time a function with a decorator or a block with a context
   manager.
+- `ConfigObject`, `load_config`, and `config_parser`: load YAML config files
+  into nested objects with attribute-style access.
 
 ## Installation
 
@@ -27,6 +29,10 @@ For runtime dependencies only:
 ```bash
 python -m pip install -r requirements.txt
 ```
+
+The runtime dependencies are also declared in `pyproject.toml`, so installing
+the package with `pip install .` or `pip install -e .` installs the same runtime
+requirements.
 
 ## Usage
 
@@ -79,6 +85,31 @@ def train_one_epoch():
 
 with time_execution("validation"):
     ...
+```
+
+Load a YAML config:
+
+```python
+from ml_training_utils.config import load_config
+
+config = load_config("configs/train.yaml")
+
+print(config.model.name)
+print(config.training.batch_size)
+```
+
+Parse a config path from the command line:
+
+```python
+from ml_training_utils.config import config_parser
+
+config = config_parser()
+```
+
+Then run your script with:
+
+```bash
+python train.py --config configs/train.yaml
 ```
 
 ## Development
